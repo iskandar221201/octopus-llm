@@ -1,0 +1,46 @@
+{
+  "name": "octopus-llm",
+  "version": "1.0.0",
+  "description": "OpenAI-compatible AI gateway with multi-key rotation, circuit breaker, and zero-cost free tier management.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "bin": {
+    "octopus-llm": "./dist/esm/bin/octopus-llm.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && tsc bin/octopus-llm.ts --target ES2022 --module ESNext --moduleResolution bundler --outDir dist/esm --ignoreConfig && tsc bin/octopus-llm.ts --target ES2022 --module CommonJS --moduleResolution bundler --outDir dist/cjs --ignoreConfig && echo '{\"type\": \"module\"}' > dist/esm/package.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "keywords": [
+    "llm",
+    "openai",
+    "gateway",
+    "key-rotation",
+    "circuit-breaker",
+    "ai"
+  ],
+  "files": [
+    "dist/",
+    "bin/"
+  ],
+  "dependencies": {
+    "openai": "^6.39.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  }
+}
